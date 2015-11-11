@@ -1,0 +1,1 @@
+docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DPLAY=unix$DISPLAY --link friport_db_1:db -it tianon/robomongo
