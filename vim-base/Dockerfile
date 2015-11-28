@@ -1,4 +1,4 @@
-FROM netbrain/base-user
+FROM netbrain/base-dev
 
 ENV VIM_HOME=$TOOLS_PATH/vim
 

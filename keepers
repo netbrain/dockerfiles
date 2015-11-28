@@ -1,1 +1,6 @@
+xhost +local:`docker inspect --format='{{ .Config.Hostname }}' $containerId`
+
+
+docker run --privileged -v /dev/dri:/dev/dri -v /usr/share/fonts:/usr/share/fonts -v /dev:/dev --rm -it netbrain/xorg
+
 docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DPLAY=unix$DISPLAY --link friport_db_1:db -it tianon/robomongo

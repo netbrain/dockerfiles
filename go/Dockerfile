@@ -1,4 +1,4 @@
-FROM netbrain/base-user
+FROM netbrain/base-dev
 
 RUN sudo apt-get -y install libncurses5-dev python-dev \
     ruby-dev git python2.7 build-essential libncurses5-dev
