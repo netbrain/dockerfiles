@@ -25,9 +25,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.v
 
 ADD .vimrc $HOME/.vimrc
 
-RUN vim -i NONE -c VundleInstall -c GoInstallBinaries -c quitall
-
-RUN (sudo apt-get -y install cmake exuberant-ctags && cd $HOME/.vim/bundle/YouCompleteMe && ./install.py)
+RUN vim -i NONE -c VundleInstall -c quitall
 
 RUN (echo "let g:vic = 1" | cat - $HOME/.vimrc > /tmp/out && mv /tmp/out $HOME/.vimrc)
 

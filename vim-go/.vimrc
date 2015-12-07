@@ -33,7 +33,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'ap/vim-buftabline'
 
 " COLORSCHEMES
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'flazz/vim-colorschemes'
+Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,7 +56,9 @@ syntax on			" enable syntax higlighting
 let mapleader = ","		" set leader to ,
 set hlsearch			" show matches during searching
 set backspace=2			" set normal backspace
-colorscheme molokai		" set colorscheme
+set background=dark		" set dark backround
+let g:solarized_termtrans = 1	" transparent background color for solarized colorscheme 
+colorscheme solarized		" set colorscheme
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * TagbarOpen

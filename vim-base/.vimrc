@@ -14,26 +14,8 @@ Plugin 'VundleVim/Vundle.vim'
 " NERDTREE
 Plugin 'scrooloose/nerdtree'
 
-" SYNTASTIC
-Plugin 'scrooloose/syntastic'
-
-" VIM-GO
-Plugin 'fatih/vim-go'
-
-" FUGITIVE
-" Plugin 'tpope/vim-fugitive'
-
-" TAGBAR
-Plugin 'majutsushi/tagbar'
-
-" YOUCOMPLETEME
-Plugin 'Valloric/YouCompleteMe'
-
-" BUFTABLINE
-Plugin 'ap/vim-buftabline'
-
 " COLORSCHEMES
-Plugin 'flazz/vim-colorschemes'
+Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,10 +37,10 @@ syntax on			" enable syntax higlighting
 let mapleader = ","		" set leader to ,
 set hlsearch			" show matches during searching
 set backspace=2			" set normal backspace
-colorscheme molokai		" set colorscheme
+set background=dark		" set dark backround
+colorscheme solarized		" set colorscheme
 
 autocmd VimEnter * NERDTree
-autocmd VimEnter * TagbarOpen
 autocmd VimEnter * wincmd l
 
 " NERDTREE
@@ -68,40 +50,4 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 map <Leader>n :NERDTreeToggle<CR>
 
-" SYNTASTIC
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" VIM-GO
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-
-" Enable goimports to automatically insert import paths instead of gofmt:
-let g:go_fmt_command = "goimports"
-
-" shows errors for the fmt command
-let g:go_fmt_fail_silently = 0
-
-" auto fmt on save:
-let g:go_fmt_autosave = 1
-
-" Disable opening browser after posting your snippet to play.golang.org:
-let g:go_play_open_browser = 0
-
-" TAGBAR
-nmap <Leader>m :TagbarToggle<CR>
-
-" BUFTABLINE
-set hidden
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
 endif

@@ -23,6 +23,10 @@ ttf-dejavu-extra
 vim-nox
 xorg
 xclip
+feh
+zsh
+compton
+tmux
 EOM
 
 sudo apt-get update && echo $PACKAGES | xargs sudo -E apt-get install -y
@@ -36,4 +40,8 @@ BINPATH=$HOME/bin
 TOOLSPATH=$HOME/tools
 mkdir -p $DEVPATH $BINPATH $TOOLSPATH
 
-git clone https://github.com/netbrain/dotfiles $DEVPATH/dotfiles && cd $DEVPATH/dotfiles && make 
+git clone https://github.com/netbrain/dotfiles $DEVPATH/dotfiles && cd $DEVPATH/dotfiles && make
+
+#Zsh prezto
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+sudo chsh -s /bin/zsh 
