@@ -27,6 +27,7 @@ feh
 zsh
 compton
 tmux
+xbindkeys
 EOM
 
 sudo apt-get update && echo $PACKAGES | xargs sudo -E apt-get install -y
