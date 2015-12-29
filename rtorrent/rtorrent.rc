@@ -1,0 +1,22 @@
+system.file_allocate.set = yes 
+system.umask.set = 022
+directory = /root/downloads
+session = /root/sessions
+set_max_file_size = 536870912000
+schedule = watch_directory,0,10,"load_start=/root/watch/*.torrent"
+
+## Network
+ip = 0.0.0.0
+port_range = 10000-19999
+port_random = yes
+
+## BitTorrent
+min_peers = 20
+max_peers = 100
+min_peers_seed = 10
+max_peers_seed = 100
+max_uploads = 40
+encryption = require,require_RC4,allow_incoming,try_outgoing
+
+## Schedules
+schedule = low_diskspace,5,60,close_low_diskspace=500M
