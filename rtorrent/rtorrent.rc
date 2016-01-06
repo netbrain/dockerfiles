@@ -16,7 +16,14 @@ max_peers = 100
 min_peers_seed = 10
 max_peers_seed = 100
 max_uploads = 40
-encryption = require,require_RC4,allow_incoming,try_outgoing
+encryption = require,require_RC4,allow_incoming,enable_retry
 
 ## Schedules
 schedule = low_diskspace,5,60,close_low_diskspace=500M
+
+##Logging
+log.open_file = "rtorrent", /var/log/rtorrent.log
+log.add_output = "debug", "rtorrent"
+#log.add_output = "tracker_info", "rtorrent"
+#log.add_output = "dht_info", "rtorrent"
+#log.add_output = "thread_debug", "rtorrent"
