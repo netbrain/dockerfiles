@@ -20,8 +20,11 @@ Plugin 'scrooloose/syntastic'
 " VIM-GO
 Plugin 'fatih/vim-go'
 
-" FUGITIVE
-" Plugin 'tpope/vim-fugitive'
+" AIRLINE
+Plugin 'bling/vim-airline'
+
+" CTRLP
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " TAGBAR
 Plugin 'majutsushi/tagbar'
@@ -73,9 +76,9 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 map <Leader>n :NERDTreeToggle<CR>
 
 " SYNTASTIC
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
