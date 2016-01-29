@@ -59,6 +59,7 @@ set backspace=2			" set normal backspace
 set background=dark		" set dark backround
 let g:solarized_termtrans = 1	" transparent background color for solarized colorscheme 
 colorscheme solarized		" set colorscheme
+set encoding=utf-8
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * TagbarOpen

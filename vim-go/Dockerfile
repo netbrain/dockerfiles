@@ -33,4 +33,4 @@ WORKDIR $HOME
 
 ENV TERM xterm-256color
 
-CMD vim $GOPATH
+ENTRYPOINT ["vim"]
