@@ -7,3 +7,8 @@ WORKDIR i3-gaps
 
 RUN git checkout gaps && git pull
 RUN make && sudo make install
+
+RUN sudo apt-get install -y devscripts dpkg-dev reprepro ubuntu-dev-tools pbuilder
+RUN sudo ln -s pbuilder-dist /usr/bin/pbuilder-sid-amd64
+RUN sudo ln -s pbuilder-dist /usr/bin/pbuilder-sid-i386
+CMD pbuilder-sid-amd64 create
