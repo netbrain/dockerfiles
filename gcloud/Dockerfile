@@ -2,7 +2,7 @@
 FROM debian:jessie
 ENV SHELL /bin/bash
 
-RUN apt-get update && apt-get -y install curl python
+RUN apt-get update && apt-get -y install curl python openssh-client
 
 RUN curl https://sdk.cloud.google.com | bash
 
