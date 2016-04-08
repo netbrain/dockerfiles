@@ -5,13 +5,10 @@ set -e
 
 cd /usr/src
 if [ ! -d linux ]; then
-  git clone --depth 1 --single-branch git://github.com/torvalds/linux.git linux 
+  git clone --branch v$1 --depth 1 --single-branch git://github.com/torvalds/linux.git linux 
 fi
 cp .config linux/
 cd linux
-
-git fetch origin v$1 --depth 1
-git checkout tags/v$1
 
 yes "" | make oldconfig
 cp .config ../.config-linux-$1-$(date +%s)
