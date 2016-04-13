@@ -4,11 +4,9 @@
 set -e
 
 cd /usr/src
-if [ ! -d linux ]; then
-  git clone --branch v$1 --depth 1 --single-branch git://github.com/torvalds/linux.git linux 
-fi
-cp .config linux/
-cd linux
+curl -k -L https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$1.tar.gz | tar xzv
+cp .config linux-$1/
+cd linux-$1
 
 yes "" | make oldconfig
 cp .config ../.config-linux-$1-$(date +%s)
