@@ -1,0 +1,7 @@
+#!/bin/bash
+mkdir -p $HOME/.config/gcloud
+docker run --rm \
+	-it \
+	-v $HOME/.config/gcloud:/home/user/.config/gcloud \
+	--user $(id -u):$(id -g) \
+	netbrain/gcloud $@
