@@ -1,0 +1,4 @@
+[submodule "zwift"]
+	path = zwift
+	url = git@github.com:netbrain/zwift.git
+	branch = master
