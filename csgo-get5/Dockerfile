@@ -59,7 +59,7 @@ RUN curl -sqL https://sm.alliedmods.net/smdrop/$SOURCEMOD_VERSION/$(curl https:/
 
 # Download get5
 ENV GET5_VERSION=v0.10.0
-RUN curl -sqL https://github.com/splewis/get5/releases/download/$GET5_VERSION/get5-$GET5_VERSION.tar.gz | tar zxvf - -C csgo
+RUN curl -sqL https://github.com/splewis/get5/releases/download/$GET5_VERSION/get5-$GET5_VERSION.tar.gz | tar zxvf - -C csgo/csgo
 
 ENV SRCDS_FPSMAX=300 \
 	SRCDS_TICKRATE=128 \
@@ -71,8 +71,8 @@ ENV SRCDS_FPSMAX=300 \
 	SRCDS_LAN="0" \
 	SRCDS_MAXPLAYERS=14 \
 	SRCDS_TOKEN=0 \
-	SRCDS_RCONPW="changeme" \
-	SRCDS_PW="changeme" \
+	SRCDS_RCONPW="changeme!" \
+	SRCDS_PW="" \
 	SRCDS_STARTMAP="de_dust2" \
 	SRCDS_REGION=3 \
 	SRCDS_MAPGROUP="mg_active" \
@@ -84,15 +84,11 @@ ENV SRCDS_FPSMAX=300 \
 	SRCDS_WORKSHOP_AUTHKEY="" \
 	ADDITIONAL_ARGS=""
 
-
 EXPOSE 27015/tcp 27015/udp 27020/udp
 
-
 WORKDIR $CSGO_DIR
-CMD bash "${CSGO_DIR}/srcds_run" -game "csgo" -console \
-	#-autoupdate \
-	#-steam_dir "${STEAMCMD_DIR}" \
-	#-steamcmd_script "${HOMEDIR}/${STEAMAPP}_update.txt" \
+CMD bash "$STEAMCMD_DIR/steamcmd.sh" +runscript csgo.txt && \
+    bash "${CSGO_DIR}/srcds_run" -game "csgo" -console \
 	-usercon \
 	+fps_max "${SRCDS_FPSMAX}" \
 	-tickrate "${SRCDS_TICKRATE}" \
