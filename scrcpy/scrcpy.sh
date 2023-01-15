@@ -7,7 +7,7 @@ IMAGE=${IMAGE:-docker.io/netbrain/scrcpy}
 VERSION=${VERSION:-latest}
 
 # Check for updated container image
-#docker pull $IMAGE:$VERSION
+docker pull $IMAGE:$VERSION
 
 # Check for proprietary nvidia driver and set correct device to use
 if [[ -f "/proc/driver/nvidia/version" ]]
