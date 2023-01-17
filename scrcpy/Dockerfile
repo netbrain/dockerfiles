@@ -7,9 +7,12 @@
 
 FROM alpine
 
+VOLUME /home/user
+
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk update \
 	&& apk add --no-cache android-tools scrcpy mesa-dri-gallium virtualgl \
-	&& adduser --disabled-password user
+	&& adduser --disabled-password user \
+	&& chown user.user /home/user
 
 USER user

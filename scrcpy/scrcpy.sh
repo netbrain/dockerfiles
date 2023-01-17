@@ -9,13 +9,7 @@ VERSION=${VERSION:-latest}
 # Check for updated container image
 docker pull $IMAGE:$VERSION
 
-# Check for proprietary nvidia driver and set correct device to use
-if [[ -f "/proc/driver/nvidia/version" ]]
-then
-	VGA_DEVICE_FLAG="--gpus all"
-else
-	VGA_DEVICE_FLAG="--device /dev/dri:/dev/dri"
-fi
+docker volume create scrcpy
 
 ARGS="$@"
 if [[ -z "$ARGS" ]]
@@ -26,11 +20,10 @@ fi
 # Create the container
 CONTAINER=$(docker create \
 	--rm \
-	--privileged \
-	--network=host \
+	--ipc=host \
 	-e DISPLAY=$DISPLAY \
+	-v scrcpy:/home/user \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	$VGA_DEVICE_FLAG \
 	$IMAGE:$VERSION $ARGS)
 	
 # Allow container to connect to X
