@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:latest
 
 ENV NVIDIA_VISIBLE_DEVICES \
         ${NVIDIA_VISIBLE_DEVICES:-all}
