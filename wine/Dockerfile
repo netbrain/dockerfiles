@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bookworm
 
 ENV NVIDIA_VISIBLE_DEVICES \
         ${NVIDIA_VISIBLE_DEVICES:-all}
@@ -32,7 +32,7 @@ RUN \
 	libgl1-mesa-glx libgl1-mesa-glx:i386 \
 	libgl1-mesa-dri libgl1-mesa-dri:i386 && \
  	wget -qO - http://dl.winehq.org/wine-builds/winehq.key | apt-key add - && \
-	echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" > \
+	echo "deb https://dl.winehq.org/wine-builds/debian/ bookworm main" > \
 	/etc/apt/sources.list.d/winehq.list && \
 	apt-get update && \
 	apt-get -y install --install-recommends winehq-stable && \
