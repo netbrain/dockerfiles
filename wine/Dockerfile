@@ -1,5 +1,5 @@
 FROM debian:bookworm
-
+ARG WINE_VERSION=7.0.0.0-bookworm-1
 ENV NVIDIA_VISIBLE_DEVICES \
         ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \
@@ -33,10 +33,15 @@ RUN \
 	libgl1-mesa-dri libgl1-mesa-dri:i386 && \
  	wget -qO - http://dl.winehq.org/wine-builds/winehq.key | apt-key add - && \
 	echo "deb https://dl.winehq.org/wine-builds/debian/ bookworm main" > \
-	/etc/apt/sources.list.d/winehq.list && \
+	/etc/apt/sources.list.d/winehq.list && \ 
+  sed -i '/^Types: deb/{:a; N; /\n$/!ba; s/Suites: \(.*\)/Suites: bullseye \1/}' /etc/apt/sources.list.d/debian.sources && \
 	apt-get update && \
-	apt-get -y install --install-recommends winehq-stable && \
-  	rm -rf /var/lib/apt/lists/*
+	apt-get -y install --install-recommends \
+      winehq-stable=${WINE_VERSION} \
+      wine-stable=${WINE_VERSION} \
+      wine-stable-amd64=${WINE_VERSION} \
+      wine-stable-i386=${WINE_VERSION} && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
@@ -58,8 +63,3 @@ RUN adduser --disabled-password --gecos ''  user && \
 
 USER user
 WORKDIR /home/user
-
-RUN \
-	wget \
-	https://dl.winehq.org/wine/wine-mono/7.0.0/wine-mono-7.0.0-x86.msi \
-	-P /home/user/.cache/wine
