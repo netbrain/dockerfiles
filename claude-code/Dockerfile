@@ -11,6 +11,7 @@
 # - OAuth token authentication (preferred) with API key fallback
 #
 # Usage:
+#   # Launch interactive bash shell:
 #   docker run -it --rm \
 #     -v ~/.ssh:/root/.ssh:ro \
 #     -v ~/.gitconfig:/root/.gitconfig:ro \
@@ -19,6 +20,12 @@
 #     -v ~/.config/gh:/root/.config/gh:ro \
 #     -e REPO_URL=git@github.com:user/repo.git \
 #     claude-code
+#
+#   # Launch Claude Code directly:
+#   docker run -it --rm ... claude-code claude
+#
+#   # Run custom command:
+#   docker run -it --rm ... claude-code git status
 #
 FROM nixos/nix:latest
 
@@ -52,9 +59,13 @@ ENV ANTHROPIC_API_KEY="" \
     NPM_CONFIG_UPDATE_NOTIFIER="false"
 
 # Copy and set up entrypoint script
-# Handles: repo cloning, auth selection, flake activation, Claude launch
+# Handles: repo cloning, auth selection, flake activation
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# Copy Claude wrapper to a location on PATH
+COPY claude-wrapper.sh /nix/var/nix/profiles/default/bin/claude
+RUN chmod +x /nix/var/nix/profiles/default/bin/claude
+
 ENTRYPOINT ["/entrypoint.sh"]
-CMD []
+CMD ["bash"]

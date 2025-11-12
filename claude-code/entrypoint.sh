@@ -82,32 +82,10 @@ else
     cd /workspace
 fi
 
-# If arguments are passed, execute them instead of launching Claude Code
-if [ $# -gt 0 ]; then
-    echo "Executing custom command: $@"
-    if [ -f flake.nix ]; then
-        exec nix develop --command "$@"
-    else
-        exec "$@"
-    fi
-fi
-
-# Build Claude CLI command with authentication and system prompt
-# Uses .credentials.json for OAuth (copied via rsync) or ANTHROPIC_API_KEY if provided
-SYSTEM_PROMPT="Read /tmp/CLAUDE_ENVIRONMENT.md for details about your environment."
-
-# Launch Claude Code inside Nix flake development shell if flake.nix exists,
-# otherwise launch directly. This ensures all project dependencies are available.
+# Execute command or launch interactive shell
+# If flake.nix exists, wrap in nix develop environment
 if [ -f flake.nix ]; then
-    if [ -n "$ANTHROPIC_API_KEY" ]; then
-        exec nix develop --command bash -c "npx -y @anthropic-ai/claude-code --api-key $ANTHROPIC_API_KEY --dangerously-skip-permissions --system-prompt \"$SYSTEM_PROMPT\""
-    else
-        exec nix develop --command bash -c "npx -y @anthropic-ai/claude-code --dangerously-skip-permissions --system-prompt \"$SYSTEM_PROMPT\""
-    fi
+    exec nix develop --command "$@"
 else
-    if [ -n "$ANTHROPIC_API_KEY" ]; then
-        exec npx -y @anthropic-ai/claude-code --api-key $ANTHROPIC_API_KEY --dangerously-skip-permissions --system-prompt "$SYSTEM_PROMPT"
-    else
-        exec npx -y @anthropic-ai/claude-code --dangerously-skip-permissions --system-prompt "$SYSTEM_PROMPT"
-    fi
+    exec "$@"
 fi
