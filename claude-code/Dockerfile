@@ -16,6 +16,7 @@
 #     -v ~/.gitconfig:/root/.gitconfig:ro \
 #     -v ~/.claude:/tmp/.claude:ro \
 #     -v ~/.claude.json:/tmp/.claude.json:ro \
+#     -v ~/.config/gh:/root/.config/gh:ro \
 #     -e REPO_URL=git@github.com:user/repo.git \
 #     claude-code
 #
@@ -26,8 +27,8 @@ FROM nixos/nix:latest
 RUN echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf && \
     echo "sandbox = false" >> /etc/nix/nix.conf
 
-# Install Node.js, rsync, and jq using nix profile (modern approach, no channels needed)
-RUN nix profile add nixpkgs#nodejs nixpkgs#rsync nixpkgs#jq
+# Install Node.js, rsync, jq, gh, sed, and required libraries using nix profile (modern approach, no channels needed)
+RUN nix profile add nixpkgs#nodejs nixpkgs#rsync nixpkgs#jq nixpkgs#gh nixpkgs#gnused nixpkgs#stdenv.cc.cc.lib
 
 # Create workspace directory and SSH directory with proper permissions
 RUN mkdir -p /workspace /root/.ssh && \
@@ -56,3 +57,4 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+CMD []
