@@ -58,13 +58,13 @@ fi
 # Clone repository as bare repo if REPO_URL environment variable is provided
 if [ -n "$REPO_URL" ]; then
     echo "Cloning repository as bare repo: $REPO_URL"
-    git clone --bare "$REPO_URL" /workspace/.bare
+    git clone --bare "$REPO_URL" /workspace/git
     cd /workspace
 
     # Detect default branch (try common names in order)
     DEFAULT_BRANCH=""
     for branch in main master develop; do
-        if git --git-dir=.bare show-ref --verify --quiet "refs/heads/$branch"; then
+        if git --git-dir=git show-ref --verify --quiet "refs/heads/$branch"; then
             DEFAULT_BRANCH="$branch"
             break
         fi
@@ -72,12 +72,16 @@ if [ -n "$REPO_URL" ]; then
 
     # If no common branch found, use the first available branch
     if [ -z "$DEFAULT_BRANCH" ]; then
-        DEFAULT_BRANCH=$(git --git-dir=.bare branch -r | head -n 1 | sed 's@^[[:space:]]*origin/@@' | sed 's@HEAD.*@@')
+        DEFAULT_BRANCH=$(git --git-dir=git branch -r | head -n 1 | sed 's@^[[:space:]]*origin/@@' | sed 's@HEAD.*@@')
     fi
 
     echo "Creating default worktree from branch: $DEFAULT_BRANCH"
-    git --git-dir=.bare worktree add "$DEFAULT_BRANCH" "$DEFAULT_BRANCH"
+    git --git-dir=git worktree add "$DEFAULT_BRANCH" "$DEFAULT_BRANCH"
+
+    # Make the worktree read-only to prevent accidental commits
     cd "$DEFAULT_BRANCH"
+    git config core.fileMode false
+    chmod -R a-w .git
 else
     cd /workspace
 fi
